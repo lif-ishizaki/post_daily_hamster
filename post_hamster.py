@@ -25,7 +25,6 @@ def load_used():
 	return []
 
 def save_used(used_list):
-	# 上限超えたら古い方から間引く
 	if len(used_list) > USED_LIMIT:
 		used_list = used_list[-USED_LIMIT:]
 	with USED_FILE.open("w", encoding="utf-8") as f:
@@ -57,7 +56,7 @@ def fetch_candidates():
 def pick_unique(candidates, used_keys):
 	for c in candidates:
 		if c["key"] not in used_keys:
-			return c, False  # False = 再利用ではない
+			return c, False
 	# すべて使用済みなら、被りを許容して1枚返す（フィードが少ない日用のフォールバック）
 	return random.choice(candidates) if candidates else (None, None), True
 
