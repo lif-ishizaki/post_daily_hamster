@@ -30,15 +30,3 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
           python post_hamster.py
-
-      - name: Commit used.json if changed
-        run: |
-          if ! git diff --quiet -- used.json 2>/dev/null; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add used.json
-            git commit -m "chore: update used hamster keys [skip ci]"
-            git push
-          else
-            echo "No changes to used.json"
-          fi
