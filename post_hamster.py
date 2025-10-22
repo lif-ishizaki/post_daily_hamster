@@ -81,12 +81,6 @@ def build_payload(image_url, title, page_url):
 
 def post_to_slack(payload):
 	webhook = os.environ.get("SLACK_WEBHOOK_URL")
-
-	print("DEBUG: posting to slack")
-	print("DEBUG: payload:", json.dumps(payload)[:500])
-	r = requests.post(webhook, json=payload, timeout=20)
-	print("DEBUG: response:", r.status_code, r.text)
-
 	if not webhook:
 		raise RuntimeError("環境変数 SLACK_WEBHOOK_URL が未設定")
 	r = requests.post(webhook, json=payload, timeout=20)
